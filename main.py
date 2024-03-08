@@ -107,22 +107,7 @@ async def describe_image(question: Question):
     return response.choices[0].message.content
 
 
-@app.post("/talk")
-async def generate_speech(data: Message):
-    message = data.message if data.message else 'No message provided'
 
-    # Generate speech
-    tts = gTTS(text=message, lang='en')
-    tts.save("speech.mp3")
-
-    # Read the file and return the audio
-    with open("speech.mp3", "rb") as f:
-        audio = f.read()
-
-    # Remove the file after reading it
-    os.remove("speech.mp3")
-
-    return Response(audio, media_type='audio/mpeg')
 
 
 @app.get("/describe_image/{question}")
